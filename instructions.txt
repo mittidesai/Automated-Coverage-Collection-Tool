@@ -1,0 +1,110 @@
+Software Testing, Verification and Validation
+CS/CE/SE 6367.501
+Spring 2017
+Prof. = Dr. Lingming Zhang
+authors = Miti DesaiDate Submitted: 03/27/2017
+
+***************************
+	Project Readme
+***************************
+
+
+********************************
+	Project Instructions
+********************************
+
+
+The project is a maven project. Follow the below instructions to run it.
+
+
+
+********************************
+	Compiling The Project
+********************************
+
+Open the project and run the following commands
+1) mvn clean
+2) mvn install
+
+
+
+******************************************************
+	Checking Code Coverage of Another Project
+******************************************************
+
+
+To check the code coverage of another project, our project needs to be added as a dependency in the target project.
+Instruction to do the same are as follows:
+
+1) First in the dependencies tag add the following code snippet
+
+
+<dependency>
+    <groupId>edu.utdallas</groupId>
+    <artifactId>code-coverage</artifactId>
+    <version>1.0-SNAPSHOT</version>
+</dependency>
+
+
+
+2) Next you need to add the build plugins
+
+	* Maven Dependency Plugin along with a properties goal for getting the path of Jar file. The code snippet is shown below.
+	* Surefire plugin along with a configuration that will run our project jar as a java agent and provide the necessary arguments to the test cases for propert report generation.
+
+
+<build>
+    <plugins>
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-dependency-plugin</artifactId>
+            <version>2.3</version>
+            <executions>
+                <execution>
+                    <goals>
+                        <goal>properties</goal>
+                    </goals>
+                </execution>
+            </executions>
+    	</plugin>
+
+        <plugin>
+            <!-- https://mvnrepository.com/artifact/org.apache.maven.plugins/maven-surefire-plugin -->
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-surefire-plugin</artifactId>
+            <version>2.19.1</version>
+            <configuration>
+                <argLine>-javaagent:${edu.utdallas:code-coverage:jar}=${project.groupId}</argLine>
+                <properties>
+                    <property>
+                        <name>listener</name>
+                        <value>edu.utdallas.JUnitExecutionListener</value>
+                    </property>
+                </properties>
+            </configuration>
+        </plugin>
+    </plugins>
+</build>
+
+
+**************************************
+	To Calculate Code Coverage
+**************************************
+
+
+
+Run the target project normally with goal test or package and the code coverage would be calculated automatically. 
+
+A report is also generated in the root directory of the target project with the name statement_coverage_report.txt
+
+
+
+*********************************************************
+	Important Information about Build Failures
+*********************************************************
+
+
+Maven can sometime give build failures when the target project tests fail. Even if one test fails out of all the build will result in a build failure.
+Nevertheless, the report file is generated for all those tests which were run. The build failure is not caused by the code coverage tool and there can be many reasons for it,
+which are out of the scope of this project.
+
