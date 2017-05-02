@@ -1,0 +1,20 @@
+[TEST] other.Stuff2Test:addTest
+other/Stuff:3
+other/Stuff:8
+[TEST] other.StuffTest:subTest
+other/Stuff:3
+other/Stuff:11
+[TEST] other.Stuff2Test:subTest
+other/Stuff:3
+other/Stuff:11
+[TEST] other.StuffTest:addTest
+other/Stuff:3
+other/Stuff:8
+[TEST] other.Stuff2Test:multiTest
+other/Stuff:3
+other/Stuff:8
+other/Stuff:11
+[TEST] other.StuffTest:multiTest
+other/Stuff:3
+other/Stuff:8
+other/Stuff:11
